@@ -47,10 +47,10 @@
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">লগ ইন</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">রেজিসট্রেশন</a>
                         @endif
                     @endauth
                 </div>
@@ -66,7 +66,7 @@
                 <div class="recent shadow">
                     <img src="{{URL::to('')}}/media/users/{{$users -> photo}}">
                     <h3>{{$users -> name}}</h3>
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">লগ ইন</a>
                 </div>
             </div>
             @endforeach

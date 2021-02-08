@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,13 @@ class HomeController extends Controller
 
     public function edit($id){
         $single_user = User::find($id);
+        return view('edit',[
+            'single_user' => $single_user,
+        ]);
+    }
+
+    public function single_update(){
+        $single_user = User::find(Auth::user()->id);
         return view('edit',[
             'single_user' => $single_user,
         ]);
@@ -106,27 +114,4 @@ class HomeController extends Controller
     public function single_profile(){
         return view('single_profile');
     }
-
-    public function reset_password(Request $request , $id){
-        $single_password = User::find($id);
-
-        $this -> validate($request,[
-            'password' => ['required', 'min:4', 'confirmed'],
-        ]);
-
-        if((password_verify($request -> old_password , $single_password -> password)) == false ){
-            return with('success' , 'Password not match to ') -> back();
-        }else if($request -> password != $request -> password_confirmation){
-            return with('success' , 'Password not match to ') -> back();
-        }else{
-            $single_password -> password =  password_hash($request -> password, PASSWORD_DEFAULT);
-            $single_password -> update();
-            return redirect('/home');
-        }
-    }
-
-    public function change_passowrd(){
-        return view('changepassword');
-    }
-       
 }
